@@ -1,8 +1,15 @@
 import { useEffect, useState, useRef } from "react"
 
+// CRUD
+
+// Create - POST
+// Read - GET
+// Update - PUT/PATCH
+// Delete - DELETE
+
 function App() {
 
-  const [todos, setTodos] = useState([{ text: "Lunch", completed: false, _id: 1 }])
+  const [todos, setTodos] = useState([])
   const inputRef = useRef(null)
 
   useEffect(() => {
@@ -10,7 +17,7 @@ function App() {
       const response = await fetch('http://localhost:8080/todos')
       const data = await response.json()
       console.log(data)
-      // setTodos(data)
+      setTodos(data)
     }
     getTodos()
   }, [])
@@ -43,6 +50,18 @@ function App() {
   
   }
 
+  async function handleDelete(id) {
+    console.log('handleDelete')
+    try {
+          const response = await fetch(`http://localhost:8080/todos/${id}`)
+    const result = await response.json()
+    console.log(result)
+     console.log(id)
+    } catch(e) {
+      console.log(e)
+  }
+  }
+
   return (
     <>
       <h1>Todos</h1>
@@ -63,6 +82,7 @@ function App() {
               onChange={() => {}}
             />
             {todo.text}
+            <button onClick={() => handleDelete(todo._id)}>X</button>
           </li>
         ) }
       </ul>

@@ -12,7 +12,11 @@ const app = express()
 
 const port = 8080
 
+app.use(express.json()) // must have this as a body-parser for post requests
+
 app.use(cors()) // enable use of cors
+
+
 
 
 app.get('/', (req, res) => {
@@ -31,6 +35,7 @@ app.get('/todos', async (req, res) => {
 
 app.post('/todos', async (req, res) => {
    try {
+     console.log(req.body)
      const todo = await Todo.create(req.body)
      res.status(200).json(todo)
     } catch(e) {
