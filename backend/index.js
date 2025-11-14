@@ -44,6 +44,17 @@ app.post('/todos', async (req, res) => {
     }
 })
 
+app.delete('/todos/:id', async (req, res) => {
+    try {
+        const response = await Todo.findByIdAndDelete(req.params.id)
+        console.log(response)
+        res.status(200).json(response)
+    } catch(e) {
+        console.log(e)
+        res.status(400).json({ error: e.message })
+    }
+})
+
 
 app.listen(port, () => {
     console.log('Listening on port: ' + port)
