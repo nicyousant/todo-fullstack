@@ -29,6 +29,16 @@ app.get('/todos', async (req, res) => {
     }
 })
 
+app.post('/todos', async (req, res) => {
+   try {
+     const todo = await Todo.create(req.body)
+     res.status(200).json(todo)
+    } catch(e) {
+        console.log(e.message)
+        res.status(400).json({ error: e.message })
+    }
+})
+
 
 app.listen(port, () => {
     console.log('Listening on port: ' + port)
