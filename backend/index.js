@@ -8,7 +8,7 @@ import todoRoutes from './routes/todos.js'
 
 const app = express()
 
-const port = 8080
+const port = process.env.PORT || 8080
 
 app.use(express.json())
 app.use(cors())
@@ -18,8 +18,6 @@ app.use('/todos', todoRoutes)
 app.get('/', (req, res) => {
     res.json('Hello World! (from server)')
 })
-
-
 
 app.listen(port, () => {
     console.log('Listening on port: ' + port)
